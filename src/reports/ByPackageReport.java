@@ -20,6 +20,9 @@ public class ByPackageReport extends Report {
 	private String namePackage;
 	
 	private String nameToShow;
+	public String v_percent;
+	public String v_cant;
+	public String alo;
 	
 
 	/**
@@ -40,7 +43,12 @@ public class ByPackageReport extends Report {
 		String spercent = "" + percent;
 		spercent = (spercent.contains(".")) ?  spercent.substring(0,spercent.indexOf(".") + 2) : spercent;
 		
-		nameToShow = this.namePackage + " [ " +  this.badMethodsxPackage + " ("+ spercent +"%) ]";
+		//variable de retorno
+		v_percent = spercent+"%"; 
+		v_cant = "" + this.badMethodsxPackage;
+		
+		
+		nameToShow = this.namePackage ; //+ " [ " +  this.badMethodsxPackage + "  ]"+ "("+ spercent +"%)
 	}
 
 	public String toString(){
@@ -48,7 +56,17 @@ public class ByPackageReport extends Report {
 	}
 	
 	
+	// retorna porcentaje
 	
+	public String getPercent(){
+		return v_percent;
+	}
+	
+	// retorna cantidad
+	
+	public String getCantidad(){
+		return v_cant;
+	}
 	public Detector getParent() {
 		return parent;
 	}

@@ -125,7 +125,7 @@ public class SmellsLikeBadCodingPreferencePage extends
 		store.setValue("Exhibicionist methods", false);
 		store.setValue("Brain methods", false);
 		this.performDefaults();
-		setDescription("Choose your preferences for the SmellsLikeBadCoding plugin");
+		setDescription("alog Choose your preferences for the SmellsLikeBadCoding plugin");
 	}
 	
 	
