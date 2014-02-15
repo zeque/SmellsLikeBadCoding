@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="smellsLikeBadCodingBuilder"
+         name="SmellsLikeBadCoding Project Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            hasNature="true">
+         <run
+               class="smellslikebadcoding.builder.SmellsLikeBadCodingBuilder">
+         </run>
+      </builder>
+   </extension>
+   <extension
+         id="smellsLikeBadCodingNature"
+         name="SmellsLikeBadCoding Project Nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="smellslikebadcoding.builder.SmellsLikeBadCodingNature">
+         </run>
+         
+          <library name="views.jar"/>
+      </runtime>
+      <builder
+            id="SmellsLikeBadCoding.smellsLikeBadCodingBuilder">
+      </builder>
+   </extension>
+   
+  <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            objectClass="org.eclipse.core.resources.IProject"
+            nameFilter="*"
+            id="adder.contribution1">
+         <action
+               label="Add SmellsLikeBadCodingNature"
+               class="smellslikebadcoding.builder.ToggleNatureAction"
+               menubarPath="additions"
+               enablesFor="+"
+               id="adder.addRemoveNatureAction">
+         </action>
+      </objectContribution>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            objectClass="org.eclipse.core.resources.IProject"
+            nameFilter="*"
+            id="remover.contribution1">
+         <action
+               label="Remove SmellsLikeBadCodingNature"
+               class="smellslikebadcoding.builder.ToggleNatureAction"
+               menubarPath="additions"
+               enablesFor="+"
+               id="remover.addRemoveNatureAction">
+         </action>
+      </objectContribution>
+   </extension>
+   
+    <extension point="org.eclipse.ui.editors.annotationTypes">
+     <type
+        super="org.eclipse.ui.workbench.texteditor.warning"
+        markerType="SmellsLikeBadCoding.Exhibicionism"
+        name="SmellsLikeBadCoding.myAnnotation"
+        markerSeverity="1"/>
+  </extension>
+ 
+  <extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+     <specification
+        annotationType="SmellsLikeBadCoding.myAnnotation"
+        icon="icons/error.png"
+        verticalRulerPreferenceKey="myMarkerIndicationInVerticalRuler"
+        verticalRulerPreferenceValue="true"/>
+  </extension>
+    
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            name="SmellsLikeBadCoding Preferences"
+            class="smellslikebadcoding.preferences.SmellsLikeBadCodingPreferencePage"
+            id="smellslikebadcoding.preferences.SmellsLikeBadCodingPreferencePage">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="SmellsLikeBadCoding"
+            name="SmellsLikeBadCodingStatistics">
+      </category>
+      <view
+            category="SmellsLikeBadCoding"
+            class="smellslikebadcoding.views.SmellsLikeBadCodingView"
+            id="smellslikebadcoding.views.SmellsLikeBadCodingView"
+            name="SmellsLikeBadCodingView">
+            allowMultiple="true"
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               id="smellslikebadcoding.views.SmellsLikeBadCodingView"
+               ratio="0.5"
+               relationship="right"
+               relative="org.eclipse.ui.views.ProblemView">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+
+
+</plugin>
