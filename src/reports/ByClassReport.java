@@ -15,6 +15,8 @@ public class ByClassReport extends Report{
 	private int badM;
 	private int goodM;
 	private String toShow;
+	public String v_percent;
+	public String v_cant;
 		
 	public ArrayList<ReportableElement> getChildren() {
 		return children;
@@ -39,7 +41,11 @@ public class ByClassReport extends Report{
 		String spercent = "" + percent;
 		spercent = (spercent.contains(".")) ?  spercent.substring(0,spercent.indexOf(".") + 2) : spercent;
 		
-		toShow = this.name + " [ " + this.badM + " ("+ spercent +"%) ]";
+		//variable de retorno
+		v_percent = spercent+"%"; 
+		v_cant =  "" + this.badM;
+		
+		toShow = this.name;   //  + " [ " + this.badM + " ]"+" ("+ spercent +"%)
 		
 	}
 	
@@ -56,8 +62,18 @@ public class ByClassReport extends Report{
 	}
 	
 	public String toString(){
-		return toShow; 
+		return toShow; //toShow; 
 	}
 
+	// retorna porcentaje
 	
+	public String getPercent(){
+		return v_percent;
+	}
+	
+	// retorna cantidad
+	
+	public String getCantidad(){
+		return v_cant;
+	}
 }

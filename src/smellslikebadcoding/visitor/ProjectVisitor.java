@@ -121,7 +121,9 @@ public class ProjectVisitor implements IResourceDeltaVisitor{
 			spercent = "" + per;
 			spercent = (spercent.contains(".")) ?  spercent.substring(0,spercent.indexOf(".") + 2) : spercent;
 		}
-		d.setType(d.getType() + " [ " + totalBads + " (" + spercent + "%) ]");
+		d.setCantidad(""+totalBads);
+		d.setPercent(spercent+"%");
+		d.setType(d.getType()); //+ " [ " + totalBads + " (" + spercent + "%) ]" cambio
 	}
 
 	/**

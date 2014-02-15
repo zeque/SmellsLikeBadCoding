@@ -38,7 +38,7 @@ public class SmellsLikeBadCodingViewContentProvider implements ITreeContentProvi
 		} else
 		if( arg0 instanceof ByClassReport){
 			ByClassReport r = (ByClassReport)arg0;
-			return r.getChildren().toArray();
+			return r.getChildren().toArray(); 
 		}
 		if( arg0 instanceof ByPackageReport){
 			ByPackageReport r = (ByPackageReport)arg0;

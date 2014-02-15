@@ -19,12 +19,19 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.DrillDownAdapter;
 import org.eclipse.ui.part.ViewPart;
+import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.ILabelProviderListener;
+import org.eclipse.jface.viewers.ITableLabelProvider;
+import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.LabelProvider;
 
 import reports.ReportableElement;
 import smellslikebadcoding.model.Root;
@@ -60,6 +67,7 @@ public class SmellsLikeBadCodingView extends ViewPart {
 	private Action action1;
 	private Action action2;
 	private Action doubleClickAction;
+	public String algo1;
 
 	private static final String VIEWER = "SmellsLikeBadCoding.viewer";
 
@@ -83,9 +91,32 @@ public class SmellsLikeBadCodingView extends ViewPart {
 	@Override
 	public void createPartControl(Composite parent) {
 		
-		viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
-		viewer.setContentProvider(new SmellsLikeBadCodingViewContentProvider());
-		viewer.setLabelProvider(new SmellsLikeBadCodingLabelProvider());
+     // cambios		
+		Tree addressTree = new Tree(parent, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+		addressTree.setHeaderVisible(true);
+	    viewer = new TreeViewer(addressTree);
+
+   // codigo agregado
+	    
+	    TreeColumn column1 = new TreeColumn(addressTree, SWT.LEFT);
+        addressTree.setLinesVisible(true);
+	    column1.setAlignment(SWT.LEFT);
+	    column1.setText("Raiz");
+	    column1.setWidth(400);
+	    TreeColumn column2 = new TreeColumn(addressTree, SWT.RIGHT);
+	    column2.setAlignment(SWT.LEFT);
+	    column2.setText("Cantidad");
+	    column2.setWidth(200);
+	    TreeColumn column3 = new TreeColumn(addressTree, SWT.RIGHT);
+	    column3.setAlignment(SWT.LEFT);
+	    column3.setText("Porcentaje");
+	    column3.setWidth(200);
+
+		//no iria
+		//viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+		
+	    viewer.setContentProvider(new SmellsLikeBadCodingViewContentProvider());
+		viewer.setLabelProvider(new SmellsLikeBadCodingTableProvider());
 		drillDownAdapter = new DrillDownAdapter(viewer);
 
 		Root r = new Root(new ArrayList<Detector>());

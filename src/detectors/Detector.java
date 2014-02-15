@@ -32,6 +32,8 @@ public abstract class Detector{
 
 
 	protected String type;
+	protected String v_cantidad;
+	protected String v_percent;
 	protected ArrayList<Method> smellyMethods;
 	
 	//PARA LA JERARQUIA DE ARBOL
@@ -47,6 +49,24 @@ public abstract class Detector{
 	protected HashMap<IType, Integer> methodsPerClass;
 	protected ArrayList<IFile> files;
 
+	
+	public void setCantidad(String c){
+		v_cantidad = c;
+	}
+
+	public void setPercent(String p){
+		v_percent = p;
+	}
+	
+	public String getCantidad(){
+		return this.v_cantidad;
+	}
+	
+	public String getPercent(){
+		return this.v_percent;
+	}
+	
+	
 	
 	public String getProject() {
 		return project;
