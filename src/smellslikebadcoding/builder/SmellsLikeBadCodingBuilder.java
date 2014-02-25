@@ -26,10 +26,13 @@ import smellslikebadcoding.visitor.ProjectVisitor;
 import detectors.BrainMethodDetector;
 import detectors.Detector;
 import detectors.ExhibicionistMethodDetector;
+import filters.AndCompositeFilter;
+import filters.AnnotationFilter;
 import filters.IFilter;
 import filters.OrCompositeFilter;
 import filters.ScopeFilter;
 //import smellslikebadcoding.Callings;
+import filters.WildcardFilter;
 
 
 
@@ -94,15 +97,18 @@ public class SmellsLikeBadCodingBuilder extends IncrementalProjectBuilder {
 			time_start = System.currentTimeMillis();
 			
 			
-			if(detectors.size() > 0){
-				IFilter f = createDetectorFilter(store);
-				if(f != null){					
-					if(delta != null)
-					{
+			if (detectors.size() > 0) {
+				IFilter storeFilters = createDetectorFilter(store);
+				if (storeFilters != null) {
+					if (delta != null) {
+
+						IFilter annoFilter     = new AndCompositeFilter(storeFilters, new AnnotationFilter("SLBC_Exclude"));
+						IFilter wildcardFilter = new AndCompositeFilter(annoFilter, new WildcardFilter("_out"));
+						
 						IJavaProject javaProject = JavaCore.create((IProject)delta.getResource());
 						
 						//invoco al visitor del proyecto
-						delta.accept(new ProjectVisitor(detectors, f, monitor));
+						delta.accept(new ProjectVisitor(detectors, wildcardFilter, monitor));
 						
 						//cambio el arbol de la vista de estadisticas
 						monitor.worked(500);
@@ -115,17 +121,14 @@ public class SmellsLikeBadCodingBuilder extends IncrementalProjectBuilder {
 						monitor.done();
 						
 						//reseteo las preferencias
-						this.store.setValue("Exhibicionist methods", false);
-						this.store.setValue("Brain methods", false);
+//						this.store.setValue("Exhibicionist methods", false);
+//						this.store.setValue("Brain methods", false);
 					}
 				}
 				
 			}
 			time_end = System.currentTimeMillis();
 			System.out.println("the task has taken "+ ( time_end - time_start ) +" milliseconds");
-
-			
-		
 	}
 	
 	private void modifyView(Root root){

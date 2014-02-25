@@ -187,4 +187,9 @@ public class Method implements ReportableElement{
 		return this.suggestion;
 	}
 
+	
+	public boolean isDefinedInParent() {
+
+		return true;
 	}
+}

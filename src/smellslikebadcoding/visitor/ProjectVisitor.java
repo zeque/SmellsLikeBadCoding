@@ -123,6 +123,7 @@ public class ProjectVisitor implements IResourceDeltaVisitor{
 		}
 		d.setCantidad(""+totalBads);
 		d.setPercent(spercent+"%");
+		d.setReason(null);
 		d.setType(d.getType()); //+ " [ " + totalBads + " (" + spercent + "%) ]" cambio
 	}
 

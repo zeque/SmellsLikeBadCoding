@@ -1,19 +1,28 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: SmellsLikeBadCoding
-Bundle-SymbolicName: SmellsLikeBadCoding; singleton:=true
+Bundle-SymbolicName: SmellsLikeBadCoding;singleton:=true
 Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .,
+ swt-grouplayout.jar
 Bundle-Activator: smellslikebadcoding.builder.Activator
-Bundle-Vendor: Nacho y Mante
+Export-Package: detectors,
+ filters,
+ reports,
+ smellslikebadcoding.builder,
+ smellslikebadcoding.model,
+ smellslikebadcoding.preferences,
+ smellslikebadcoding.views,
+ smellslikebadcoding.visitor
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
- org.eclipse.ui.console;bundle-version="3.5.100";visibility:=reexport
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-ActivationPolicy: lazy; exclude:="SmellsLikeBadCoding"
+ org.eclipse.ui.console;bundle-version="3.5.100";visibility:=reexport,
+ org.eclipse.ui,
+ org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipse.jdt.core,
  org.eclipse.jdt.internal.corext.callhierarchy,
  org.eclipse.jdt.ui,
  org.eclipse.ui
-Bundle-ClassPath: .,
- swt-grouplayout.jar

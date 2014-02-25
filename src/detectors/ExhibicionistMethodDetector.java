@@ -282,8 +282,11 @@ public ArrayList<ReportableElement> getExhibicionistMethods(IJavaProject javaPro
 							methodsPerPackage++;
 							Method m = new Method(javaProject, mypackage, unit, type, method);
 							if(f.accept(m))
-								if(this.isExhibicionist(m))
+								if (this.isExhibicionist(m)) {
 									paraRetornar.add((ReportableElement)m);
+									if (m.isDefinedInParent()) {
+									}
+								}
 							if(!this.files.contains(m.getIFile()))
 								this.files.add(m.getIFile());
 						}

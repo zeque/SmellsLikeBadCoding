@@ -95,5 +95,4 @@ public class SmellsLikeBadCodingViewContentProvider implements ITreeContentProvi
 		// TODO Auto-generated method stub
 		
 	}
-
 }

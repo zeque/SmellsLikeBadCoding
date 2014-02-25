@@ -91,13 +91,12 @@ public class SmellsLikeBadCodingView extends ViewPart {
 	@Override
 	public void createPartControl(Composite parent) {
 		
-     // cambios		
+		// cambios		
 		Tree addressTree = new Tree(parent, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
 		addressTree.setHeaderVisible(true);
 	    viewer = new TreeViewer(addressTree);
 
-   // codigo agregado
-	    
+	    // codigo agregado
 	    TreeColumn column1 = new TreeColumn(addressTree, SWT.LEFT);
         addressTree.setLinesVisible(true);
 	    column1.setAlignment(SWT.LEFT);
@@ -111,6 +110,10 @@ public class SmellsLikeBadCodingView extends ViewPart {
 	    column3.setAlignment(SWT.LEFT);
 	    column3.setText("Porcentaje");
 	    column3.setWidth(200);
+	    TreeColumn column4 = new TreeColumn(addressTree, SWT.RIGHT);
+	    column4.setAlignment(SWT.LEFT);
+	    column4.setText("Posible Razón Exhibicionismo");
+	    column4.setWidth(200);
 
 		//no iria
 		//viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
