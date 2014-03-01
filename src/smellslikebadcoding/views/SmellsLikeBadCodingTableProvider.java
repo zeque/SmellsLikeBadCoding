@@ -9,6 +9,7 @@ import org.eclipse.ui.PlatformUI;
 import detectors.Detector;
 import reports.ByClassReport;
 import reports.ByPackageReport;
+import reports.Method;
 import reports.ReportableElement;
 
 class SmellsLikeBadCodingTableProvider implements ITableLabelProvider {
@@ -57,6 +58,15 @@ class SmellsLikeBadCodingTableProvider implements ITableLabelProvider {
 			 	case 0: return pr.toString();
 			 	case 1: return pr.getCantidad();
 			 	case 2: return pr.getPercent();
+			 	case 3: return null;
+			 }
+
+		 } else if (element instanceof Method) {
+			 Method m = (Method)element;
+			 switch (columnIndex) {
+			 	case 0: return m.toString();
+			 	case 1: return null;
+			 	case 2: return null;
 			 	case 3: return null;
 			 }
 		 }
