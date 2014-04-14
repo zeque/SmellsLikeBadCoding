@@ -125,7 +125,13 @@ public class ExhibicionistMethodDetector extends Detector {
 							llamado.setSuggestion(" (try making it private)");
 						else
 						if(sprotected)	
+							{
 							llamado.setSuggestion(" (try making it protected)");
+							if(llamado.isDefinedInParent())
+								llamado.setReason("la culpa es de la interfaz");
+			
+						}
+							
 						else
 							llamado.setSuggestion(" (try making it package)");
 						return true;
@@ -284,8 +290,9 @@ public ArrayList<ReportableElement> getExhibicionistMethods(IJavaProject javaPro
 							if(f.accept(m))
 								if (this.isExhibicionist(m)) {
 									paraRetornar.add((ReportableElement)m);
-									if (m.isDefinedInParent()) {
-									}
+									//if (m.isDefinedInParent()) {
+										
+									//}
 								}
 							if(!this.files.contains(m.getIFile()))
 								this.files.add(m.getIFile());

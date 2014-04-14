@@ -1,24 +1,33 @@
 package reports;
 
+import java.lang.reflect.Type;
+import java.util.Arrays;
+
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.core.Flags;
+import org.eclipse.jdt.core.IClassFile;
 import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.core.IJavaModel;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IMember;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IType;
+import org.eclipse.jdt.core.ITypeHierarchy;
 import org.eclipse.jdt.core.JavaModelException;
 
 
 
-public class Method implements ReportableElement{
+public class Method implements ReportableElement {
 
 	private IMethod iMethod;
 	private IJavaProject iJavaProject;
 	private ICompilationUnit file;
 	private IType javaClass;
 	private IPackageFragment iPackage;
+	private String reason;
 	
 	private String suggestion;
 	
@@ -187,9 +196,52 @@ public class Method implements ReportableElement{
 		return this.suggestion;
 	}
 
-	
-	public boolean isDefinedInParent() {
-
-		return true;
+	public void setReason(String r) {
+		this.reason = r;
 	}
+
+	public String getReason() {
+		return this.reason;
+	}
+	  static void printInterfaceNames(Object o) {
+	      Class c = o.getClass();
+	      Class[] theInterfaces = c.getInterfaces();
+	      for (int i = 0; i < theInterfaces.length; i++) {
+	         String interfaceName = theInterfaces[i].getName();
+	         System.out.println(interfaceName);
+	      }
+	   }
+	  
+		
+		public boolean isDefinedInParent() throws JavaModelException {
+		//	ITypeHierarchy typeHierarchie = javaClass.newTypeHierarchy(new NullProgressMonitor());
+	    //    IType tipo01[] = typeHierarchie.getSuperInterfaces(javaClass);
+	     //   tipo01 = typeHierarchie.getAllInterfaces();
+	     //   IMethod[] metodosI = tipo01[0].findMethods(iMethod);
+//	        IType tipo = typeHierarchie.getSuperclass(javaClass); 
+//	        IType tipo02[] = typeHierarchie.getAllSuperclasses(javaClass);
+		//	IMethod[]  aClass = getJavaClass().getSuperInterfaceNames();
+			//Class[] aa= aClass.getInterfaces();
+			
+	        	if(getJavaClass().isClass()){  // si es classs obtengo sus interfaces y si tiene el metodo return true
+	              	//System.out.println("superclass: " + this.javaClass);
+	        		ITypeHierarchy typeHierarchie = javaClass.newTypeHierarchy(new NullProgressMonitor());
+	                IType tipo01[] = typeHierarchie.getSuperInterfaces(javaClass);
+	                IMethod[] metodosI = tipo01[0].findMethods(iMethod);
+	        		for(int  j=0; j< metodosI.length; j++) // recorro los metodos de la interface
+	        		{
+	        			if(metodosI[j].getElementName().equals(getName())){
+	        				System.out.println("nombre metodo: " + metodosI[j].getElementName());
+	        			     return true;
+	        			}
+	        		    else{
+	        				System.out.println("algo anda mal " + getName());
+	        			}	
+	        		
+	        		}
+	        	}
+
+	     return false;
+		}
+	
 }
