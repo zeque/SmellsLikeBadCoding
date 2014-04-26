@@ -3,6 +3,7 @@ package smellslikebadcoding.preferences;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.preference.StringFieldEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.ui.IWorkbench;
@@ -32,8 +33,10 @@ public class SmellsLikeBadCodingPreferencePage extends
 	private BooleanFieldEditor exMBoolPref, brMBoolPref, publicMethods,
 			packageMethods, protectedMethods;
 
+	
 	private IPreferenceStore store;
-
+	private StringFieldEditor campofiltro;
+	
 	public SmellsLikeBadCodingPreferencePage() {
 		super(GRID);
 		store = Activator.getDefault().getPreferenceStore();
@@ -75,11 +78,19 @@ public class SmellsLikeBadCodingPreferencePage extends
 		this.protectedMethods = new BooleanFieldEditor(
 				"Protected", "Protected", scope);
 
+		Group filter = new Group(getFieldEditorParent(), SWT.LINE_DOT);
+		filter.setParent(getFieldEditorParent());
+		filter.setText("Filter");
+		//detectors.setEnabled(true);
+		
+		campofiltro = new StringFieldEditor("", "Introduce Wildcard:",filter);
+		campofiltro.setStringValue("a");
 		this.addField(brMBoolPref);
 		this.addField(packageMethods);
 		this.addField(publicMethods);
 		this.addField(protectedMethods);
 		this.addField(exMBoolPref);
+		this.addField(campofiltro);
 	}
 
 	@Override
@@ -90,6 +101,7 @@ public class SmellsLikeBadCodingPreferencePage extends
 			store.setValue("Public", this.publicMethods.getBooleanValue());
 			store.setValue("Protected", this.protectedMethods.getBooleanValue());
 			store.setValue("Package", this.packageMethods.getBooleanValue());
+			store.setValue("Wildcard", campofiltro.getStringValue());	
 
 		}
 		return true;
@@ -108,7 +120,7 @@ public class SmellsLikeBadCodingPreferencePage extends
 			store.setDefault("Public", false);
 			store.setDefault("Protected", false);
 			store.setDefault("Package", false);
-
+			store.setDefault("Wildcard", "asd");
 		}
 	}
 	
@@ -124,8 +136,9 @@ public class SmellsLikeBadCodingPreferencePage extends
 		store.setToDefault("Exhibicionist methods");
 		store.setValue("Exhibicionist methods", false);
 		store.setValue("Brain methods", false);
+		store.setValue("Wildcard", "algo");
 		this.performDefaults();
-		setDescription("alog Choose your preferences for the SmellsLikeBadCoding plugin");
+		setDescription("Choose your preferences for the SmellsLikeBadCoding plugin");
 	}
 	
 	

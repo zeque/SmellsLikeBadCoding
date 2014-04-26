@@ -103,7 +103,9 @@ public class SmellsLikeBadCodingBuilder extends IncrementalProjectBuilder {
 					if (delta != null) {
 
 						IFilter annoFilter     = new AndCompositeFilter(storeFilters, new AnnotationFilter("SLBC_Exclude"));
-						IFilter wildcardFilter = new AndCompositeFilter(annoFilter, new WildcardFilter("_out"));
+						IFilter wildcardFilter = new AndCompositeFilter(annoFilter, new WildcardFilter(store.getString("Wildcard")));
+						
+						System.out.print("prueba - " + store.getString("Wildcard")+"\n");
 						
 						IJavaProject javaProject = JavaCore.create((IProject)delta.getResource());
 						
