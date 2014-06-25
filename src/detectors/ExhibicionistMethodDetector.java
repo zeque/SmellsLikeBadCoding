@@ -11,6 +11,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.*;
+import org.eclipse.jdt.core.IAnnotation;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IMember;
@@ -182,6 +183,37 @@ public class ExhibicionistMethodDetector extends Detector {
 		return false;
 	}
 
+	private boolean isShadow(Method llamado) {
+
+		if (llamado != null) {
+
+			ArrayList<Method> llamadores = this.getCallersOf(llamado);
+
+			if (llamadores != null && !llamadores.isEmpty()) {
+				System.out.println("Metodo: " + llamado.getName());
+
+				for (Method method : llamadores) {
+
+					System.out.println("Llamadores: " + method.getName());
+					if (this.existsPotentialShadowMethod(method, "")) {
+						return true;
+					}
+				}
+			}
+		}
+
+		return false;
+	}
+
+	private boolean existsPotentialShadowMethod(Method m, String name) {
+
+		CallHierarchy callHierarchy = CallHierarchy.getDefault();
+
+		//MethodWrapper[] methodWrappers = callHierarchy.
+
+		return true;
+	}
+
 	private ArrayList<Method> getCallersOf2(Method m) throws JavaModelException{
 		
 		// Creo el arreglo de metodos del projecto
@@ -289,10 +321,10 @@ public ArrayList<ReportableElement> getExhibicionistMethods(IJavaProject javaPro
 							Method m = new Method(javaProject, mypackage, unit, type, method);
 							if(f.accept(m))
 								if (this.isExhibicionist(m)) {
+									/*if (this.isShadow(m)) {
+										System.out.println("SE ENCONTRO UN SHADOW!!!!");
+									}*/
 									paraRetornar.add((ReportableElement)m);
-									//if (m.isDefinedInParent()) {
-										
-									//}
 								}
 							if(!this.files.contains(m.getIFile()))
 								this.files.add(m.getIFile());

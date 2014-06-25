@@ -11,7 +11,7 @@ public class AnnotationFilter implements IFilter {
 	private String annotation;
 	
 	public AnnotationFilter(String anno) {
-		
+
 		this.annotation = anno;
 	}
 	
@@ -27,7 +27,6 @@ public class AnnotationFilter implements IFilter {
 			}
 
 		} catch (JavaModelException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

@@ -104,9 +104,7 @@ public class SmellsLikeBadCodingBuilder extends IncrementalProjectBuilder {
 
 						IFilter annoFilter     = new AndCompositeFilter(storeFilters, new AnnotationFilter("SLBC_Exclude"));
 						IFilter wildcardFilter = new AndCompositeFilter(annoFilter, new WildcardFilter(store.getString("Wildcard")));
-						
-						System.out.print("prueba - " + store.getString("Wildcard")+"\n");
-						
+
 						IJavaProject javaProject = JavaCore.create((IProject)delta.getResource());
 						
 						//invoco al visitor del proyecto
